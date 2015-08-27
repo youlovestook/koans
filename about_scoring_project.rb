@@ -31,6 +31,55 @@ require File.expand_path(File.dirname(__FILE__) + '/neo')
 
 def score(dice)
   # You need to write this method
+  dice.sort! {|x, y| x <=> y}
+  diceOnes = dice.find_all { |i|  i == 1 }
+  diceTwos = dice.find_all { |i|  i == 2 }
+  diceThrees = dice.find_all { |i|  i == 3 }
+  diceFours = dice.find_all { |i|  i == 4 }
+  diceFives = dice.find_all { |i|  i == 5 }
+  diceSixes = dice.find_all { |i|  i == 6 }
+  
+  if dice.empty?
+    runningScore = 0
+  end
+
+  if diceOnes.length > 0 && diceOnes.length < 3
+     oneScore = diceOnes.length * 100 
+  elsif diceOnes.length == 3
+     oneScore = 1000
+  elsif diceOnes.length == 4
+     oneScore = 1100
+  elsif diceOnes.length == 5
+     oneScore = 1200
+  end
+
+  if diceTwos.length == 3
+     twoScore = 200
+  end
+
+  if diceThrees.length == 3
+     threeScore = 300
+  end
+
+  if diceFours.length == 3
+     fourScore = 400
+  end
+
+  if diceFives.length  > 0 && diceFives.length < 3
+     fiveScore = diceFives.length * 50
+  elsif diceFives.length == 3
+     oneScore = 500
+  elsif diceFives.length == 4
+     oneScore = 550
+  elsif diceFives.length == 5
+     oneScore = 600
+  end
+
+  if diceSixes.length == 3
+     sixScore = 600
+  end
+  
+   return runningScore.to_i + oneScore.to_i + twoScore.to_i + threeScore.to_i + fourScore.to_i  + fiveScore.to_i + sixScore.to_i
 end
 
 class AboutScoringProject < Neo::Koan
